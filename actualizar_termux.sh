@@ -28,9 +28,23 @@ case $opcion in
         pkg clean
         ;;
      4)
-        echo "configurar bash pkg. up. date y grade..."  
-        ~/.bashrc
-        echo pkg update && pkg upgrade -y >> ~/.bashrc
+        echo "configurar bash pkg. up. date y grade..."         
+        #!/bin/bash
+# Añadir comando de actualización automática a bash.bashrc en Termux
+
+BASHRC_PATH="/data/data/com.termux/files/usr/etc/bash.bashrc"
+UPDATE_COMMAND="pkg update && pkg upgrade -y"
+
+# Verificar si el comando ya existe en el archivo
+if grep -Fxq "$UPDATE_COMMAND" $BASHRC_PATH
+then
+    echo "El comando ya existe en $BASHRC_PATH"
+else
+    echo "Añadiendo el comando al archivo $BASHRC_PATH"
+    echo "$UPDATE_COMMAND" >> $BASHRC_PATH
+    echo "Comando añadido correctamente."
+fi
+ 
         ;; 
      5)
         echo "Saliendo..."
